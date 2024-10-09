@@ -1,76 +1,54 @@
-from selenium.webdriver.common.by import By
-from data import URL
+from locators.main_page_locators import MainPageLocators
+from locators.personal_account_locators import PersonalAccountPageLocators
+from locators.login_page_locators import LoginPageLocators
 from pages.base_page import BasePage
-import allure
+import  allure
 
 
-class PersonalAccount(BasePage):
+class PersonalAccountPage(BasePage):
+    @allure.step('Заполняем поле Email')
+    def input_email(self, email):
+        self.wait_and_find_element(PersonalAccountPageLocators.EMAIL_INPUT).send_keys(email)
 
-    BUTTON_ACCOUNT = (By.XPATH, "//*[contains(text(), 'Личный Кабинет')]")
-    BUTTON_HISTORY_PROFILE = (By.XPATH, "//a[text()='История заказов']")
-    BUTTON_SAVE = (By.XPATH, "//button[@class='button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa']")
-    INPUT_EMAIL = (By.XPATH, "//label[text() = 'Email']/../input")
-    INPUT_PASSWORD = (By.XPATH, "//label[text() = 'Пароль']/../input")
-    BUTTON_ENTER = (By.XPATH, "//button[text()='Войти']")
-    EXIT_BUTTON = (By.XPATH, "//button[text()='Выход']")
+    @allure.step('Заполняем поле Пароль')
+    def input_password(self, password):
+        self.wait_and_find_element(PersonalAccountPageLocators.PASSWORD_INPUT).send_keys(password)
 
-    @allure.step('Клик по кнопке "История заказов"')
-    def click_history_profile(self):
-        self.click(self.BUTTON_HISTORY_PROFILE)
+    @allure.step('Нажимаем на кнопку Войти')
+    def click_login_button(self):
+        self.wait_and_find_element(PersonalAccountPageLocators.LOGIN_BUTTON)
+        self.click_element(PersonalAccountPageLocators.LOGIN_BUTTON)
 
-    @allure.step('Клик по кнопке "Выход"')
-    def click_exit_button(self):
-        self.click(self.EXIT_BUTTON)
+    @allure.step('Нажимаем на кнопку Выйти')
+    def click_logout_button(self):
+        self.wait_and_find_element(PersonalAccountPageLocators.LOGOUT_BUTTON)
+        self.click_element(PersonalAccountPageLocators.LOGOUT_BUTTON)
 
-    @allure.step('Клик по кнопке "Личный кабинет"')
-    def click_button_personal_account(self):
-        self.click(self.BUTTON_ACCOUNT)
+    @allure.step('Нажимаем на кнопку Личный Кабинет')
+    def click_header_login_button(self):
+        self.click_element(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
 
-    @allure.step('Заполнения поля почты')
-    def set_email_input(self, email):
-        email_input = self.wait_and_find_element(self.INPUT_EMAIL)
-        email_input.send_keys(email)
+    @allure.step('Нажимаем на кнопку История заказов')
+    def click_button_order_history(self):
+        self.wait_and_find_element(PersonalAccountPageLocators.ORDER_HISTORY_BUTTON)
+        self.click_element(PersonalAccountPageLocators.ORDER_HISTORY_BUTTON)
 
-    @allure.step('Заполнение поля пароля')
-    def set_password_input(self, password):
-        email_input = self.wait_and_find_element(self.INPUT_PASSWORD)
-        email_input.send_keys(password)
+    @allure.step('Находим кнопку Оформить заказ')
+    def find_create_order_button(self):
+        return self.wait_and_find_element(MainPageLocators.CREATE_ORDER_BUTTON)
 
-    @allure.step('Клик по кнопке "Войти"')
-    def click_enter_button(self):
-        self.click(self.BUTTON_ENTER)
+    @allure.step('Находим номер заказа')
+    def find_order_number(self):
+        return self.wait_and_find_element(PersonalAccountPageLocators.ORDER_HISTORY_ITEM_NUMBER)
 
-    @allure.step('Ожидание смены страницы логина')
-    def wait_for_url_changes_login(self):
-        self.wait_url_changes(URL.BASE_PAGE + URL.LOGIN_PAGE)
+    @allure.step('Находим на кнопку Выйти')
+    def find_logout_button(self):
+        return self.wait_and_find_element(PersonalAccountPageLocators.LOGOUT_BUTTON)
 
-    @allure.step('Ожидание смены главной страницы')
-    def wait_for_url_changes_main(self):
-        self.wait_url_changes(URL.BASE_PAGE)
+    @allure.step('Находим заголовок Соберите бургер')
+    def find_collect_burger(self):
+        return self.wait_and_find_element(MainPageLocators.COLLECT_BURGER)
 
-    @allure.step('Ожидание смены страницы аккаунт')
-    def wait_for_url_changes_account(self):
-        self.wait_url_changes(URL.BASE_PAGE + URL.ACCOUNT_PROFILE_PAGE)
-
-    @allure.step('Ожидание смены страницы аккаунт-профайл')
-    def wait_for_url_changes_profile_account(self):
-        self.wait_url_changes(URL.BASE_PAGE + URL.ACCOUNT_PROFILE_PAGE_FINAL)
-
-    @allure.step('Вход в личный кабинет с ожиданием смены необходимых страниц')
-    def click_enter_personal_account_wait_pages_changes(self):
-        self.click_enter_button()
-        self.wait_for_url_changes_login()
-        self.click_button_personal_account()
-        self.wait_for_url_changes_main()
-        self.wait_for_url_changes_account()
-
-    @allure.step('Поиск текста кнопки "Сохранить"')
-    def save_button_present(self):
-        return self.find_text(self.BUTTON_SAVE)
-
-
-
-
-
-
-
+    @allure.step('Находим кнопку Восстановить пароль')
+    def find_recover_password(self):
+        return self.wait_and_find_element(LoginPageLocators.RECOVER_PASSWORD)

@@ -1,19 +1,15 @@
-class URL:
+class Urls:
+    STELLAR_BURGERS = 'https://stellarburgers.nomoreparties.site/'
+    LOGIN_PAGE = f"{STELLAR_BURGERS}login"
+    RECOVER_PASSWORD = f"{STELLAR_BURGERS}forgot-password"
+    RESET_PASSWORD = f"{STELLAR_BURGERS}reset-password"
+    ORDER_TAPE = f"{STELLAR_BURGERS}feed"
+    ORDER_HISTORY =  f"{STELLAR_BURGERS}account/order-history"
+    API_STELLAR_BURGERS = 'https://stellarburgers.nomoreparties.site/api/'
+    API_USER_REGISTER = 'auth/register'
+    ACCOUNT_PAGE = f"{STELLAR_BURGERS}account/profile"
 
-    BASE_PAGE = 'https://stellarburgers.nomoreparties.site/'
-    HISTORY_ORDER_PAGE = 'account/order-history'
-    ACCOUNT_PROFILE_PAGE = 'account'
-    ACCOUNT_PROFILE_PAGE_FINAL = 'account/profile'
-    LOGIN_PAGE = 'login'
-    FORGOT_PASSWORD_PAGE = 'forgot-password'
-    RESET_PASSWORD_PAGE = 'reset-password'
-    ORDER_LIST_PAGE = 'feed'
-
-    API_URL_BASE = 'https://stellarburgers.nomoreparties.site'
-    API_URL_REG_USER = '/api/auth/register'
-    API_URL_DELETE_USER = '/api/auth/user'
+class Login:
+    EMAIL = "test@test.testss"
 
 
-class ITEMS:
-
-    email = 'vvp88@ya.ru'
